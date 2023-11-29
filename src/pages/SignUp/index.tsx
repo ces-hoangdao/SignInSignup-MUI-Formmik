@@ -1,8 +1,8 @@
 import { Box, Container } from "@mui/material";
+import { Google } from "grommet-icons";
 import { Link } from "react-router-dom";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { Formik, Form, FormikHelpers } from "formik";
-import { SignupSchema } from "src/utils/Vallidation";
+import { useFormik } from "formik";
+import { SignUpSchema } from "src/utils/Validation";
 import {
   FormTitle,
   SupportText,
@@ -11,123 +11,139 @@ import {
   Label,
   Input,
   HintText,
+  ErrorMessage,
+  Form,
 } from "src/Components/CustomMuiComponents";
 const index = () => {
+  const formik = useFormik({
+    initialValues: {
+      userName: "",
+      email: "",
+      password: "",
+    },
+    validateOnChange: false,
+    validateOnBlur: false,
+    validationSchema: SignUpSchema,
+    onSubmit: (values, { setSubmitting }) => {
+      setTimeout(() => {
+        alert(JSON.stringify(values, null, 2));
+        setSubmitting(false);
+      }, 400);
+    },
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    formik.handleChange(e);
+    formik.setErrors({});
+    formik.setFieldValue(name, value);
+  };
+
   return (
     <Container>
-      <Formik
-        initialValues={{
-          userName: "",
-          email: "",
-          password: "",
-        }}
-        validateOnChange
-        validateOnBlur
-        validationSchema={SignupSchema}
-        onSubmit={(
-          values: {
-            userName: string;
-            email: string;
-            password: string;
-          },
-          {
-            setSubmitting,
-          }: FormikHelpers<{
-            userName: string;
-            email: string;
-            password: string;
-          }>
-        ) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
-        }}
-      >
-        {({ errors, touched }) => (
-          <Form
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              maxWidth: "400px",
-              marginInline: "auto",
-              gap: "20px",
-            }}
-          >
-            <Box>
-              <FormTitle>Create an account</FormTitle>
-              <SupportText>Start your 30-day free trial.</SupportText>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "6px",
-                width: "100%",
-              }}
-            >
-              <Label required>Name</Label>
-              <Input placeholder="Enter your name" />
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "6px",
-                width: "100%",
-              }}
-            >
-              <Label required>Email</Label>
-              <Input placeholder="Enter your email" />
-              {errors.email && touched.email ? <div>{errors.email}</div> : null}
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "6px",
-                width: "100%",
-              }}
-            >
-              <Label required>Password</Label>
-              <Input placeholder="Create a password" type="password" />
-            </Box>
-            <Box sx={{ width: "100%" }}>
-              <HintText>
-                <CheckCircleIcon color="info" />
-                Must be at least 8 characters
-              </HintText>
-              <HintText>
-                <CheckCircleIcon color="info" />
-                Must contain one special character
-              </HintText>
-            </Box>
-
-            <PrimaryButton type="submit">Get Started</PrimaryButton>
-            <SecondaryButton>Sign up with Google</SecondaryButton>
-          </Form>
-        )}
-      </Formik>
-
-      <HintText
-        sx={{
-          justifyContent: "center",
-        }}
-      >
-        Already have an account?
-        <Link
-          to="/sign-in"
-          style={{
-            fontWeight: 600,
-            textDecoration: "none",
-            color: "#7F56D9",
+      <Form onSubmit={formik.handleSubmit}>
+        <Box>
+          <FormTitle>Create an account</FormTitle>
+          <SupportText>Start your 30-day free trial.</SupportText>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "6px",
+            width: "100%",
           }}
         >
-          Sign in
-        </Link>
-      </HintText>
+          <Label required>UserName</Label>
+          <Input
+            name="userName"
+            id="userName"
+            placeholder="Enter your name"
+            onChange={handleInputChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.userName}
+            error={Boolean(formik.errors.userName)}
+          />
+          {formik.errors.userName && formik.touched.userName && (
+            <ErrorMessage>{formik.errors.userName}</ErrorMessage>
+          )}
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "6px",
+            width: "100%",
+          }}
+        >
+          <Label required>Email</Label>
+          <Input
+            name="email"
+            id="email"
+            placeholder="Enter your Email"
+            onChange={handleInputChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+            error={Boolean(formik.errors.email)}
+          />
+          {formik.errors.email && formik.touched.email && (
+            <ErrorMessage>{formik.errors.email}</ErrorMessage>
+          )}
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "6px",
+            width: "100%",
+          }}
+        >
+          <Label required>Password</Label>
+          <Input
+            name="password"
+            id="password"
+            type="password"
+            placeholder="Create a password"
+            onChange={handleInputChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
+            error={Boolean(formik.errors.password)}
+          />
+          {formik.errors.password && formik.touched.password && (
+            <ErrorMessage>{formik.errors.password}</ErrorMessage>
+          )}
+        </Box>
+
+        <Box sx={{ width: "100%" }}>
+          <HintText>
+            Must be at least 8 characters and contain one special character
+          </HintText>
+        </Box>
+        <PrimaryButton type="submit">Get Started</PrimaryButton>
+        <SecondaryButton>
+          <Google color="plain" />
+          Sign up with Google
+        </SecondaryButton>
+        <HintText
+          sx={{
+            justifyContent: "center",
+          }}
+        >
+          Already have an account?
+          <Link
+            to="/sign-in"
+            style={{
+              fontWeight: 600,
+              textDecoration: "none",
+              color: "#7F56D9",
+            }}
+          >
+            Sign in
+          </Link>
+        </HintText>
+      </Form>
     </Container>
   );
 };

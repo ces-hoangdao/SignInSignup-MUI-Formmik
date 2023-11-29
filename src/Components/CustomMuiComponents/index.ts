@@ -20,6 +20,14 @@ export const SupportText = styled(Typography)(() => ({
   fontWeight: "400",
 }));
 
+export const ErrorMessage = styled(Typography)(({ theme }) => ({
+  color: theme.palette.error.main,
+  fontSize: "13px",
+  lineHeight: "18px",
+  fontWeight: "400",
+  width: "100%",
+}));
+
 export const HintText = styled(Typography)(() => ({
   color: "#475467",
   fontSize: "14px",
@@ -59,11 +67,12 @@ export const SecondaryButton = styled(Button)(({ theme }) => ({
   color: theme.palette.text.secondary,
   borderRadius: "8px",
   width: "100%",
-
+  display: "flex",
+  gap: "8px",
   "&:hover": {
-    backgroundColor: "#B0EACD",
-    borderColor: "#B0EACD",
-    color: theme.palette.common.white,
+    backgroundColor: "#DFE6EB",
+    borderColor: "#DFE6EB",
+    color: "#4285F",
   },
 }));
 
@@ -75,6 +84,16 @@ export const Label = styled(InputLabel)(({ theme }) => ({
   fontWeight: "500",
   width: "100%",
 }));
+
+export const Form = styled("form")({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  maxWidth: "400px",
+  marginInline: "auto",
+  gap: "20px",
+});
 
 export const Input = styled(InputBase)(({ theme }) => ({
   color: theme.palette.text.primary,

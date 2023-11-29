@@ -1,5 +1,7 @@
 import { Box, Container } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useFormik } from "formik";
+import { SignInSchema } from "src/utils/Validation";
 import {
   FormTitle,
   SupportText,
@@ -8,21 +10,36 @@ import {
   Label,
   Input,
   HintText,
+  ErrorMessage,
+  Form,
 } from "src/Components/CustomMuiComponents";
+import { Google, Apple, Facebook } from "grommet-icons";
 const index = () => {
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validateOnChange: false,
+    validateOnBlur: false,
+    validationSchema: SignInSchema,
+    onSubmit: (values, { setSubmitting }) => {
+      setTimeout(() => {
+        alert(JSON.stringify(values, null, 2));
+        setSubmitting(false);
+      }, 400);
+    },
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    formik.handleChange(e);
+    formik.setErrors({});
+    formik.setFieldValue(name, value);
+  };
   return (
     <Container>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          maxWidth: "400px",
-          marginInline: "auto",
-          gap: "20px",
-        }}
-      >
+      <Form onSubmit={formik.handleSubmit}>
         <Box>
           <FormTitle>Log in to your account</FormTitle>
           <SupportText>Welcome back! Please enter your details.</SupportText>
@@ -36,8 +53,20 @@ const index = () => {
           }}
         >
           <Label required>Email</Label>
-          <Input placeholder="Enter your email" />
+          <Input
+            name="email"
+            id="email"
+            placeholder="Enter your Email"
+            onChange={handleInputChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+            error={Boolean(formik.errors.email)}
+          />
+          {formik.errors.email && formik.touched.email && (
+            <ErrorMessage>{formik.errors.email}</ErrorMessage>
+          )}
         </Box>
+
         <Box
           sx={{
             display: "flex",
@@ -47,11 +76,31 @@ const index = () => {
           }}
         >
           <Label required>Password</Label>
-          <Input placeholder="Enter your password" type="password" />
+          <Input
+            name="password"
+            id="password"
+            type="password"
+            placeholder="Create a password"
+            onChange={handleInputChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
+            error={Boolean(formik.errors.password)}
+          />
+          {formik.errors.password && formik.touched.password && (
+            <ErrorMessage>{formik.errors.password}</ErrorMessage>
+          )}
         </Box>
 
-        <PrimaryButton>Get Started</PrimaryButton>
-        <SecondaryButton>Sign up with Google</SecondaryButton>
+        <PrimaryButton type="submit">Get Started</PrimaryButton>
+        <SecondaryButton>
+          <Google color="plain" /> Sign up with Google
+        </SecondaryButton>
+        <SecondaryButton>
+          <Facebook color="plain" /> Sign up with Facebook
+        </SecondaryButton>
+        <SecondaryButton>
+          <Apple color="plain" /> Sign up with Apple
+        </SecondaryButton>
         <HintText
           sx={{
             justifyContent: "center",
@@ -69,7 +118,7 @@ const index = () => {
             Sign up
           </Link>
         </HintText>
-      </Box>
+      </Form>
     </Container>
   );
 };

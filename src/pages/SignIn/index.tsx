@@ -1,4 +1,5 @@
 import { Box, Container } from "@mui/material";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { SignInSchema } from "src/utils/Validation";
@@ -14,7 +15,13 @@ import {
   Form,
 } from "src/Components/CustomMuiComponents";
 import { Google, Apple, Facebook } from "grommet-icons";
+import { auth } from "src/configs/firebaseConfig";
 const index = () => {
+  const handleGoogle = async () => {
+    const provider = await new GoogleAuthProvider();
+    return signInWithPopup(auth, provider);
+  };
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -92,7 +99,7 @@ const index = () => {
         </Box>
 
         <PrimaryButton type="submit">Get Started</PrimaryButton>
-        <SecondaryButton>
+        <SecondaryButton onClick={handleGoogle}>
           <Google color="plain" /> Sign up with Google
         </SecondaryButton>
         <SecondaryButton>

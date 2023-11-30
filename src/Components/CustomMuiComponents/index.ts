@@ -5,6 +5,20 @@ import {
   InputLabel,
   InputBase,
 } from "@mui/material";
+import { NavLink } from "react-router-dom";
+
+export const Link = styled(NavLink)(({ theme }) => ({
+  color: "#475467",
+  fontSize: "16px",
+  lineHeight: "24px",
+  fontWeight: "600",
+  textDecoration: "none",
+  cursor: "pointer",
+
+  "&:hover": {
+    color: theme.palette.text.secondary,
+  },
+}));
 
 export const FormTitle = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.primary,

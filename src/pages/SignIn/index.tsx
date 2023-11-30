@@ -14,6 +14,7 @@ import {
   ErrorMessage,
   Form,
 } from "src/Components/CustomMuiComponents";
+import Header from "src/Components/Header";
 import { Google, Apple, Facebook } from "grommet-icons";
 import { auth } from "src/configs/firebaseConfig";
 const index = () => {
@@ -45,7 +46,10 @@ const index = () => {
     formik.setFieldValue(name, value);
   };
   return (
-    <Container>
+    <Container
+      sx={{ display: "flex", padding: "80px", flexDirection: "column" }}
+    >
+      <Header />
       <Form onSubmit={formik.handleSubmit}>
         <Box>
           <FormTitle>Log in to your account</FormTitle>
@@ -97,6 +101,18 @@ const index = () => {
             <ErrorMessage>{formik.errors.password}</ErrorMessage>
           )}
         </Box>
+        <HintText>
+          <Link
+            to="/forgot-password"
+            style={{
+              fontWeight: 600,
+              textDecoration: "none",
+              color: "#7F56D9",
+            }}
+          >
+            Forgot password?
+          </Link>
+        </HintText>
 
         <PrimaryButton type="submit">Get Started</PrimaryButton>
         <SecondaryButton onClick={handleGoogle}>

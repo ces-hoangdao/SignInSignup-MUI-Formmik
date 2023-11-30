@@ -26,3 +26,9 @@ export const SignInSchema = Yup.object().shape({
       "Password must contain at least one special character (!@#$%^&*)"
     ),
 });
+
+export const ForgotPasswordSchema = Yup.object().shape({
+  email: Yup.string()
+    .required("Email is a required field")
+    .email("Invalid email format"),
+});

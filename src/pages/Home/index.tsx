@@ -1,11 +1,7 @@
-import Header from "src/Components/Header";
+import PrimaryLayout from "src/layouts/PrimaryLayout";
 
 const index = () => {
-  return (
-    <div>
-      <Header />
-    </div>
-  );
+  return <PrimaryLayout>home</PrimaryLayout>;
 };
 
 export default index;

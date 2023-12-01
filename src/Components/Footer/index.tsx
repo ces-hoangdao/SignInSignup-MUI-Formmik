@@ -14,6 +14,7 @@ const index = () => {
           padding: 0,
           justifyContent: "space-between",
           flexDirection: { xs: "column", md: "row" },
+          paddingBottom: 1,
         }}
       >
         <Box

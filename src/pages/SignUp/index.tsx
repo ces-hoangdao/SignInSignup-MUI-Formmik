@@ -14,7 +14,8 @@ import {
   ErrorMessage,
   Form,
 } from "src/Components/CustomMuiComponents";
-import Header from "src/Components/Header";
+import { SignUpHandler } from "src/services/authService";
+
 const index = () => {
   const formik = useFormik({
     initialValues: {
@@ -26,10 +27,8 @@ const index = () => {
     validateOnBlur: false,
     validationSchema: SignUpSchema,
     onSubmit: (values, { setSubmitting }) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        setSubmitting(false);
-      }, 400);
+      SignUpHandler(values);
+      setSubmitting(false);
     },
   });
 
@@ -44,7 +43,6 @@ const index = () => {
     <Container
       sx={{ display: "flex", padding: "80px", flexDirection: "column" }}
     >
-      <Header />
       <Form onSubmit={formik.handleSubmit}>
         <Box>
           <FormTitle>Create an account</FormTitle>

@@ -107,6 +107,7 @@ export const Form = styled("form")({
   maxWidth: "400px",
   marginInline: "auto",
   gap: "20px",
+  width: "100%",
 });
 
 export const Input = styled(InputBase)(({ theme }) => ({

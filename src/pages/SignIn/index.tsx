@@ -14,9 +14,10 @@ import {
   ErrorMessage,
   Form,
 } from "src/Components/CustomMuiComponents";
-import Header from "src/Components/Header";
 import { Google, Apple, Facebook } from "grommet-icons";
 import { auth } from "src/configs/firebaseConfig";
+import { SignInHandler } from "src/services/authService";
+
 const index = () => {
   const handleGoogle = async () => {
     const provider = await new GoogleAuthProvider();
@@ -32,10 +33,8 @@ const index = () => {
     validateOnBlur: false,
     validationSchema: SignInSchema,
     onSubmit: (values, { setSubmitting }) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        setSubmitting(false);
-      }, 400);
+      SignInHandler(values);
+      setSubmitting(false);
     },
   });
 
@@ -49,7 +48,6 @@ const index = () => {
     <Container
       sx={{ display: "flex", padding: "80px", flexDirection: "column" }}
     >
-      <Header />
       <Form onSubmit={formik.handleSubmit}>
         <Box>
           <FormTitle>Log in to your account</FormTitle>

@@ -37,7 +37,9 @@ const index = () => {
     formik.setFieldValue(name, value);
   };
   return (
-    <Container>
+    <Container
+      sx={{ display: "flex", padding: "80px", flexDirection: "column" }}
+    >
       <Form onSubmit={formik.handleSubmit}>
         <Box
           sx={{

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { SignUpSchema } from "src/utils/Validation";
 import {
-  FormTitle,
+  Title,
   SupportText,
   SecondaryButton,
   PrimaryButton,
@@ -41,11 +41,11 @@ const index = () => {
 
   return (
     <Container
-      sx={{ display: "flex", padding: "80px", flexDirection: "column" }}
+      sx={{ display: "flex", paddingTop: "80px", flexDirection: "column" }}
     >
       <Form onSubmit={formik.handleSubmit}>
         <Box>
-          <FormTitle>Create an account</FormTitle>
+          <Title>Create an account</Title>
           <SupportText>Start your 30-day free trial.</SupportText>
         </Box>
         <Box

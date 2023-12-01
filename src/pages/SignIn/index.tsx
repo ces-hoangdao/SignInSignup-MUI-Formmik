@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { SignInSchema } from "src/utils/Validation";
 import {
-  FormTitle,
+  Title,
   SupportText,
   SecondaryButton,
   PrimaryButton,
@@ -46,11 +46,11 @@ const index = () => {
   };
   return (
     <Container
-      sx={{ display: "flex", padding: "80px", flexDirection: "column" }}
+      sx={{ display: "flex", paddingTop: "80px", flexDirection: "column" }}
     >
       <Form onSubmit={formik.handleSubmit}>
         <Box>
-          <FormTitle>Log in to your account</FormTitle>
+          <Title>Log in to your account</Title>
           <SupportText>Welcome back! Please enter your details.</SupportText>
         </Box>
         <Box

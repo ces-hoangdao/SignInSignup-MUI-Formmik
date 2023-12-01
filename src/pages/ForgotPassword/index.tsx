@@ -5,7 +5,7 @@ import { ForgotPasswordSchema } from "src/utils/Validation";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Key } from "grommet-icons";
 import {
-  FormTitle,
+  Title,
   SupportText,
   PrimaryButton,
   Label,
@@ -54,7 +54,7 @@ const index = () => {
           <Key color="#475467" size="40" />
         </Box>
         <Box>
-          <FormTitle>Forgot password?</FormTitle>
+          <Title>Forgot password?</Title>
           <SupportText>
             No worries, we’ll send you reset instructions.
           </SupportText>

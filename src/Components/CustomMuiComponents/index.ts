@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 
 export const Link = styled(NavLink)(({ theme }) => ({
   color: "#475467",
+  fontFamily: "Inter",
   fontSize: "16px",
   lineHeight: "24px",
   fontWeight: "600",
@@ -20,7 +21,7 @@ export const Link = styled(NavLink)(({ theme }) => ({
   },
 }));
 
-export const FormTitle = styled(Typography)(({ theme }) => ({
+export const Title = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.primary,
   fontSize: "30px",
   fontWeight: "bold",
